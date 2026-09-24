@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8"/>
+<title>Вьетнам на байке — бесплатная версия путеводителя</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"/>
+<style>
+  :root{
+    --base-size: 17px;
+    --ink:#18323a;
+    --muted:#64767b;
+    --teal:#087f8c;
+    --teal2:#13a6a2;
+    --coral:#ef6b62;
+    --sun:#f6c453;
+    --line:#dce7e6;
+  }
+  html.big-text{ --base-size: 18.7px; }
+  html{ font-size: var(--base-size); scroll-behavior: smooth; }
+
+  body{
+    font-family:'DejaVu Sans', Arial, sans-serif;
+    line-height:1.6;
+    color:var(--ink);
+    background:#f4f8f7;
+    max-width:900px;
+    margin:0 auto;
+    padding:0 12px 40px;
+    overflow-x:hidden;
+    position:relative;
+  }
+  body:before{
+    content:'';
+    position:fixed;
+    inset:0;
+    pointer-events:none;
+    background:
+      radial-gradient(circle at 10% 0%, rgba(19,166,162,.08), transparent 28%),
+      radial-gradient(circle at 100% 20%, rgba(239,107,98,.07), transparent 25%);
+    z-index:-1;
+  }
+
+  h1,h2,h3,h4{ color:#0e4d64; page-break-after:avoid; break-after:avoid; }
+  h1{ font-size:2.4rem; text-align:center; line-height:1.1; margin:0; }
+  h2{ font-size:1.55rem; line-height:1.18; border-bottom:2px solid #0e4d64; padding-bottom:5px; margin:2rem 0 1rem; }
+  h3{ font-size:1.28rem; line-height:1.25; margin:1.4rem 0 .7rem; }
+  h4{ font-size:1.05rem; margin:1rem 0 .5rem; color:#0e4d64; }
+  p,li{ font-size:1rem; }
+  p{ margin:.6em 0 1em; }
+  ul,ol{ padding-left:1.25rem; }
+  li{ margin:.35rem 0; }
+
+  a{ color:var(--teal); text-decoration:none; border-bottom:1px dotted var(--teal); text-underline-offset:3px; }
+  a:hover{ color:#e74c3c; border-bottom-color:#e74c3c; }
+
+  table{
+    width:100%;
+    border-collapse:separate;
+    border-spacing:0;
+    margin:14px 0;
+    font-size:.95rem;
+    overflow:hidden;
+    border:1px solid var(--line);
+    border-radius:16px;
+  }
+  th,td{ padding:10px 11px; text-align:left; vertical-align:top; border-bottom:1px solid var(--line); }
+  th{ background:#e9f6f4; color:var(--ink); }
+  tr:last-child td{ border-bottom:0; }
+
+  .note{ background:#fef9e7; border-left:4px solid #f1c40f; padding:10px 14px; margin:14px 0; border-radius:8px; }
+  .warning{ background:#fff4f1; border-left:4px solid var(--coral); padding:10px 14px; margin:14px 0; border-radius:8px; }
+  .tip{ background:#eefaf8; border-left:4px solid var(--teal); padding:10px 14px; margin:14px 0; border-radius:8px; }
+  .cta{
+    background:linear-gradient(135deg,#e9f7f5 0%,#fff8dc 100%);
+    border:1px solid #cfe8e4;
+    border-radius:20px;
+    padding:22px 24px;
+    margin:26px 0;
+    text-align:center;
+    box-shadow:0 10px 26px rgba(24,50,58,.08);
+  }
+  .cta h3{ margin-top:0; }
+  .cta p{ color:#3b545c; }
+  .cta .btn{
+    display:inline-block;
+    background:var(--teal);
+    color:#fff !important;
+    border:0;
+    border-radius:14px;
+    padding:14px 26px;
+    font-weight:700;
+    font-size:1.05rem;
+    border-bottom:none;
+    margin-top:8px;
+    box-shadow:0 8px 20px rgba(8,127,140,.28);
+  }
+  .cta .btn:hover{ background:#065f6b; color:#fff !important; }
+
+  .cover{ text-align:center; margin-top:50px; }
+  .cover p{ color:#555; }
+  .cover .lead{ font-size:1.1rem; color:#2c5e6a; }
+  .cover p.sub{ font-size:.95rem; }
+
+  .badge-free{
+    display:inline-block;
+    background:var(--sun);
+    color:#5a4500;
+    font-weight:800;
+    letter-spacing:.12em;
+    font-size:.78rem;
+    padding:6px 14px;
+    border-radius:999px;
+    margin-bottom:14px;
+    box-shadow:0 4px 12px rgba(246,196,83,.4);
+  }
+
+  .feature{
+    background:#fff;
+    border:1px solid var(--line);
+    border-radius:16px;
+    padding:14px 18px 6px;
+    margin:12px 0;
+    box-shadow:0 5px 16px rgba(24,50,58,.05);
+  }
+  .feature h3{ margin-top:.2rem; }
+  .feature ul{ margin-top:.2rem; }
+
+  h3.day-plan{
+    background:linear-gradient(135deg, #e9f6f4 0%, #fdfaf0 100%);
+    color:#0e4d64;
+    border-left:6px solid var(--teal2);
+    border-radius:12px;
+    padding:13px 18px;
+    margin:1.4rem 0 .8rem;
+    font-size:1.2rem;
+    font-weight:800;
+    line-height:1.25;
+    box-shadow:0 3px 10px rgba(8,127,140,.08);
+    scroll-margin-top:60px;
+  }
+
+  .reels-table td.montage-h{
+    background:#eef7f6;
+    color:#0e4d64;
+    font-size:1rem;
+    font-weight:700;
+    padding:8px 11px;
+    border-bottom:1px solid var(--line);
+  }
+  .reels-table td.montage-cell{
+    background:#fbfefd;
+    padding:10px 13px;
+  }
+  .reels-table td.montage-cell ul{ margin:0; padding-left:20px; }
+  .reels-table td.montage-cell li{ margin:3px 0; font-size:.95rem; }
+
+  #mobile-bar{
+    position:sticky;
+    top:0;
+    z-index:1000;
+    display:flex;
+    gap:8px;
+    justify-content:flex-end;
+    align-items:center;
+    padding:9px 10px;
+    margin:0 -12px 12px;
+    background:rgba(255,253,248,.94);
+    backdrop-filter:blur(12px);
+    -webkit-backdrop-filter:blur(12px);
+    border-bottom:1px solid var(--line);
+    box-shadow:0 5px 18px rgba(24,50,58,.07);
+  }
+  #mobile-bar button{
+    font:inherit;
+    font-size:.85rem;
+    border:1px solid var(--line);
+    background:#fff;
+    border-radius:12px;
+    padding:8px 12px;
+    color:var(--ink);
+    cursor:pointer;
+  }
+
+  .map-link{
+    background:#e8f1f5;
+    padding:2px 8px;
+    border-radius:10px;
+    font-size:.9rem;
+    white-space:nowrap;
+    color:#0e4d64;
+    border-bottom:none;
+    display:inline-block;
+  }
+  .map-link:hover{ background:#0e4d64; color:#fff; }
+
+  .reels-wrap{ margin:8px 0 14px; }
+  .reels-wrap summary{ cursor:pointer; font-weight:700; color:var(--teal); padding:9px 0; }
+  .reels-wrap[open]{ background:#f7fbfa; border-radius:14px; padding:0 12px 8px; }
+  body.hide-reels .reels-wrap{ display:none; }
+
+  footer{ text-align:center; font-size:.85rem; color:#888; margin-top:40px; }
+
+  @media (max-width:700px){
+    h1{ font-size:1.9rem; }
+    h2{ font-size:1.4rem; margin-top:1.6rem; }
+    h3{ font-size:1.2rem; }
+    h3.day-plan{ padding:12px 14px; font-size:1.15rem; }
+  }
+  @media (min-width:701px){
+    #mobile-bar{ display:none; }
+  }
+
+  @page{ size:A4; margin:18mm; }
+  @media print{
+    #mobile-bar, .reels-wrap summary, .cta .btn{ display:none !important; }
+    body{ background:#fff !important; padding:0; max-width:none; font-size:11pt; }
+    body:before{ display:none; }
+    a{ color:#000; border-bottom:none; }
+    h1{ margin-top:40mm; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ============ Мини-панель ============ -->
+<div id="mobile-bar">
+  <button id="reels-toggle" type="button"
+          title="Скрыть или показать блоки съёмки"
+          aria-label="Скрыть или показать блоки съёмки"
+          aria-pressed="false">🎬 Сценарии</button>
+  <button id="font-toggle" type="button"
+          title="Крупный или обычный текст"
+          aria-label="Переключить крупный или обычный текст"
+          aria-pressed="false">A+</button>
+</div>
+
+<!-- ============ Обложка ============ -->
+<div class="cover">
+  <span class="badge-free">FREE · БЕСПЛАТНАЯ ВЕРСИЯ</span>
+  <h1>ВЬЕТНАМ НА БАЙКЕ</h1>
+  <p class="lead">11 дней по Центральному Вьетнаму — от моря до гор, от рассвета на маяке до ночного рынка в горах</p>
+  <p>Универсальный путеводитель + сценарий съёмки</p>
+  <p class="sub">Демонстрационная версия · 2026</p>
+</div>
+
+<div style="text-align:center;margin:26px 0">
+  <div class="cta" style="margin:0">
+    <h3>Это сокращённая версия</h3>
+    <p>Ниже — обзор того, что вы получите в полной версии, и <strong>один полный день</strong> как демонстрация формата.<br>Точные локации, карты и остальные 11 дней — в платной версии.</p>
+  </div>
+</div>
+
+<!-- ============ О чём этот гайд ============ -->
+<h2>О чём этот гайд</h2>
+<p>Это не пересказ Википедии и не подборка из интернета. Это маршрут, который мы проехали сами: собрали тайминги, нашли рабочие логистические решения, сняли реальные кадры и превратили это в пошаговый план для тех, кто хочет увидеть Центральный Вьетнам с седла байка — а не из окна туристического автобуса.</p>
+<p>В полной версии — 12 дней, каждый с таймингами до получаса, точными локациями со ссылками на Google Maps, сценариями для Reels и саундтреком. Всё, что нужно, чтобы просто сесть и поехать.</p>
+
+<!-- ============ Что входит ============ -->
+<h2>Что входит в полную версию</h2>
+
+<div class="feature">
+<h3>🎯 Маршрут по дням — 12 дней</h3>
+<ul>
+  <li>Пошаговые тайминги</li>
+  <li>Все локации — с названиями, координатами и кликабельными картами</li>
+  <li>Логика переездов: почему именно такой порядок, а не другой</li>
+  <li>Фотостопы по пути, о которых не пишут в обычных путеводителях</li>
+  <li>Скрытые пляжи, деревни, водопады, смотровые точки</li>
+</ul>
+</div>
+
+<div class="feature">
+<h3>🛵 Всё про байк</h3>
+<ul>
+  <li>Проверенный прокатчик с прямым контактом</li>
+  <li>Что проверить при получении байка и как не потерять деньги на возврате</li>
+  <li>Заправки, цены, парковки, штрафы</li>
+  <li>Особенности движения по маршруту и на серпантинах</li>
+  </ul>
+</div>
+
+<div class="feature">
+<h3>🎒 Подготовка</h3>
+<ul>
+  <li>Документы: паспорт, права, страховка — что действительно нужно</li>
+  <li>Деньги: счёт, карта, банкоматы, курсы, где снять без комиссии</li>
+  <li>Связь: местная SIM, офлайн-карты, переводчик, связь с миром</li>
+  <li>Бюджет-таблица: от «эконом» до «комфорт» по всем статьям</li>
+  <li>Чек-лист сборов с учётом сезона</li>
+</ul>
+</div>
+
+<div class="feature">
+<h3>🌦 Сезоны, погода, планы Б</h3>
+<ul>
+  <li>Оптимальные окна для всего маршрута</li>
+  <li>Что такое Тет и почему в эти даты всё работает иначе</li>
+  <li>Что делать, если ливни, шторм или туман на перевале</li>
+  <li>Замены для каждого дня: куда поехать, если основная локация закрыта</li>
+</ul>
+</div>
+
+<div class="feature">
+<h3>🎬 Сценарии съёмки</h3>
+<ul>
+  <li>Раскадровка Reels для каждого дня: кадр → оборудование → приём</li>
+  <li>Разбор монтажа по секундам</li>
+  <li>Оборудование — от телефона до Insta360 X4</li>
+  <li>Правило трёх кадров и универсальные приёмы</li>
+  <li>Саундтрек к каждому дню с таймингами</li>
+</ul>
+</div>
+
+<div class="feature">
+<h3>🙏 Культура и этикет</h3>
+<ul>
+  <li>Правила поведения в храмах и пагодах: дресс-код, обувь, фото</li>
+  <li>Что не делать, чтобы не попасть в неловкую ситуацию</li>
+</ul>
+</div>
+
+<div class="feature">
+<h3>🎁 Бонус: 15 локаций сверх маршрута</h3>
+<ul>
+  <li>Дикие пляжи, куда не ездят туристы</li>
+  <li>Кафе с видом — для закатов, кофе и длинных пауз</li>
+  <li>Кофейные плантации, стеклянный мост, рестораны у огня</li>
+  <li>Готовые сценарии для тех, у кого есть свободный день</li>
+</ul>
+</div>
+
+<div class="feature">
+<h3>🆘 Экстренные контакты и страховка</h3>
+<ul>
+  <li>Посольство РФ, туристическая полиция, скорая</li>
+  <li>Что делать при проблемах с документами, байком, здоровьем</li>
+  <li>Как правильно оформить страховку, которая реально покроет байк</li>
+</ul>
+</div>
+
+<!-- ============ Сравнение ============ -->
+<h2>Бесплатная vs полная версия</h2>
+<table>
+  <tr><th>Что</th><th>Бесплатная</th><th>Полная</th></tr>
+  <tr><td>Дней маршрута</td><td>1 демо-день</td><td>Все 12 дней</td></tr>
+  <tr><td>Локации</td><td>Общие описания</td><td>Точные названия + карты</td></tr>
+  <tr><td>Тайминги</td><td>Есть в демо-дне</td><td>Все дни, до получаса</td></tr>
+  <tr><td>Сценарии Reels</td><td>Есть в демо-дне</td><td>Раскадровки + саундтрек на каждый день</td></tr>
+  <tr><td>Байк, деньги, связь</td><td>Кратко</td><td>Полные разделы с цифрами и контактами</td></tr>
+  <tr><td>Планы Б</td><td>Нет</td><td>По каждому дню</td></tr>
+  <tr><td>Бонус-локации</td><td>Нет</td><td>15 готовых точек</td></tr>
+  <tr><td>Культура, этикет, экстренные контакты</td><td>Нет</td><td>Есть</td></tr>
+</table>
+
+<!-- ============ Демо-день ============ -->
+<h2>Демо: один день из полного гайда</h2>
+<p>Ниже — <strong>полный</strong> один из самых насыщенных дней маршрута. Так выглядят все 12 дней в платной версии: тайминги, логика, советы, блок съёмки.</p>
+
+<h3 class="day-plan">📅 День 5 · Скорость и Безумие</h3>
+<div class="tip">
+  <strong>Почему стоит поехать:</strong> Этот день — про контрасты. Утро начинается с адреналина на горной трассе, днём вы спускаетесь к водопаду по самому длинному альпийскому санному спуску страны, а вечером попадаете в архитектурный сюрреализм, который невозможно описать словами. Завершение — бар-лабиринт, где вместо навигации — хаос.
+</div>
+<ul>
+  <li>08:30 — приезжаем к открытию на картодром. Трасса в идеальном состоянии, машин мало, воздух ещё прохладный — лучшее окно для заездов.</li>
+  <li>10:30 — короткий переезд по южной окраине города (~20–25 минут) к водопаду с Alpine Coaster.</li>
+  <li>11:00 — спуск к водопаду на санях, прогулка к каскадам, брызги, лес. Одна из самых фотогеничных локаций маршрута.</li>
+  <li>13:30 — обед в кафе на горной смотровой или в центре города.</li>
+  <li>15:00 — «Безумный дом» — Яркая архитектурная достопримечательность. К этому времени основной поток туристов спадает — можно спокойно снимать без людей в кадре.</li>
+  <li>17:00 — свободное время или короткая остановка на старом железнодорожном вокзале (опционально).</li>
+  <li>19:00 — бар-лабиринт в центре города: сотни комнат, узкие коридоры, лестницы в никуда. Завершение дня.</li>
+</ul>
+<div class="tip"><strong>Логика дня — «Южный треугольник»:</strong> начинаем с самой удалённой точки на юго-западе, движемся на юг, вечером возвращаемся в центр. Это позволяет избежать лишних переездов через город. Концепция дня — «скорость + безумие» — сохраняется от утра до вечера.</div>
+
+<h4>Сценарий Reels</h4>
+<table class="reels-table">
+  <tr><th>Кадр</th><th>Оборудование</th><th>Приём</th></tr>
+  <tr><td>Шлем карта, застёжка</td><td>Телефон</td><td>Slow-mo</td></tr>
+  <tr><td>POV за рулём карта, трасса</td><td>Экшн-камера на креплении</td><td>Гиперлапс</td></tr>
+  <tr><td>Пролёт над трассой картодрома</td><td>Экшн-камера / Insta360 на палке</td><td>Невидимая палка</td></tr>
+  <tr><td>Спуск на Alpine Coaster к водопаду (POV)</td><td>Экшн-камера / Insta360</td><td>Гиперлапс, ускорение</td></tr>
+  <tr><td>Водопад: брызги, лес, вода</td><td>Экшн-камера на палке</td><td>Slow-mo, проводка</td></tr>
+  <tr><td>«Безумный дом»: искажённые стены, лестницы</td><td>Insta360 вертикально</td><td>Tiny Planet, проводка</td></tr>
+  <tr><td>Крыша, панорама города</td><td>Телефон</td><td>Тряска, POV</td></tr>
+  <tr><td>Бар-лабиринт, тайная комната</td><td>Телефон</td><td>Крупный</td></tr>
+  <tr><td class="montage-h" colspan="3">🎞 Монтаж</td></tr>
+  <tr><td class="montage-cell" colspan="3">
+    <ul>
+      <li>0–3: картодром — пролёт над трассой, музыка нарастает.</li>
+      <li>3–5: водопад — спуск на санях (POV), ускорение.</li>
+      <li>5–7: водопад — брызги, лес, замедление.</li>
+      <li>7–10: «Безумный дом» — искажённые стены, Tiny Planet.</li>
+      <li>10–12: крыша, город, музыка на полную.</li>
+      <li>12–15: бар-лабиринт, финальный текст «Скорость и Безумие. День 5».</li>
+    </ul>
+  </td></tr>
+</table>
+<p><strong>Музыка:</strong> Ludovico Einaudi — «Experience» → Sub Urban — «Cradles» → Billie Eilish — «you should see me in a crown».</p>
+
+<div class="note">
+  <strong>Что вы видите в демо:</strong> тайминги, логика дня, тёплые советы, сценарий съёмки с оборудованием и таймкодами, музыка. <strong>Что вы не видите:</strong> названия локаций и ссылки на карты — они появляются только в полной версии.
+</div>
+
+<!-- ============ CTA ============ -->
+<div class="cta">
+  <h3>Готовы поехать?</h3>
+  <p>В полной версии — все 12 дней, точные локации с координатами, планы Б по погоде, бюджет, раздел про байк, бонусные места и полный саундтрек. Плюс — те же сценарии Reels для каждого дня.</p>
+  <p><strong>Формат:</strong> HTML-файл, открывается в любом браузере, работает на телефоне и на компьютере.<br>
+  <strong>Объём:</strong> 13 разделов, ~60 страниц текста, ~50 интерактивных ссылок на карты.</p>
+  <a class="btn" href="#contact">Связаться и получить полную версию</a>
+</div>
+
+<div class="note" id="contact">
+  <strong>Как получить полную версию:</strong> напишите нам в Telegram или на e-mail (укажите ваш канал связи — я подставлю сюда контакт). В ответ приходит ссылка на скачивание PDF/HTML и короткая инструкция, как открыть файл на телефоне.
+</div>
+
+<footer>
+  © 2026. Вьетнам на байке. Демонстрационная версия путеводителя.
+</footer>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  const rt = document.getElementById('reels-toggle');
+  rt?.addEventListener('click', () => {
+    const hidden = document.body.classList.toggle('hide-reels');
+    rt.setAttribute('aria-pressed', hidden ? 'true' : 'false');
+  });
+
+  const ft = document.getElementById('font-toggle');
+  ft?.addEventListener('click', () => {
+    const big = document.documentElement.classList.toggle('big-text');
+    ft.setAttribute('aria-pressed', big ? 'true' : 'false');
+  });
+
+  document.querySelectorAll('h4').forEach(h => {
+    const t = h.textContent.trim().toLowerCase();
+    if (!t.includes('сценарий reels')) return;
+
+    const d = document.createElement('details');
+    d.className = 'reels-wrap';
+    d.open = true;
+
+    const sum = document.createElement('summary');
+    sum.textContent = '🎬 ' + h.textContent.trim();
+    d.appendChild(sum);
+
+    let n = h.nextElementSibling;
+    h.replaceWith(d);
+    while (n) {
+      if (/^H[1-4]$/.test(n.tagName)) break;
+      if (n.classList && n.classList.contains('day-plan')) break;
+
+      const next = n.nextElementSibling;
+      d.appendChild(n);
+      n = next;
+    }
+  });
+});
+</script>
+
+</body>
+</html>
